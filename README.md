@@ -2,6 +2,12 @@
 
 A microtonal instrument plugin (VST3 and standalone) that lets you tune every key of a MIDI keyboard individually, the way you would retune the strings of a guitar. It was built to play by-ear open guitar tunings on a keyboard. This repository includes those tunings, the recordings they were measured from, the scripts that turn the measurements into scale files, and a first-pass analyzer for new recordings.
 
+## Download
+
+**Windows 10/11 (64-bit):** get the installer from the [latest release](https://github.com/DMNK154/MicroKeys/releases/latest). Download `MicroKeys-…-Windows-Setup.exe` and double-click it. It installs the VST3 plugin, the standalone app and the tunings. If Windows says "Windows protected your PC", click **More info**, then **Run anyway** (the installer isn't signed with a paid certificate). A portable zip is there too, for installing by hand.
+
+There is no macOS or Linux download: MicroKeys has only been built and tested on Windows so far.
+
 ## Features
 
 - **Per-key tuning.** Select a key by playing or clicking it, then drag the cents slider (±200 cents, 0.001-cent steps). The pitch updates while the note is sounding, so you can tune by ear like turning a tuning peg. The slider widens automatically for keys tuned further out.

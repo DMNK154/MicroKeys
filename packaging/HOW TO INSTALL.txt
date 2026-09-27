@@ -1,0 +1,73 @@
+MicroKeys @VERSION@ for Windows (64-bit)
+========================================
+
+MicroKeys is a microtonal instrument: you can tune every key of your keyboard
+individually. It comes as a VST3 plugin (for FL Studio and other music
+software) and as a standalone app that runs on its own.
+
+Website and source code: https://github.com/DMNK154/MicroKeys
+
+
+THE EASY WAY: THE INSTALLER
+---------------------------
+1. Run MicroKeys-@VERSION@-Windows-Setup.exe.
+
+   Windows may show "Windows protected your PC". This appears because the
+   installer is not signed with a paid certificate. Click "More info", then
+   "Run anyway".
+
+2. Click through the installer. It puts:
+   - the VST3 plugin in C:\Program Files\Common Files\VST3
+   - the standalone app in the Start menu
+   - the tunings in your Documents\MicroKeys Scales folder
+     (tunings you already have there are never overwritten)
+
+
+THE PORTABLE ZIP (NO INSTALLER)
+-------------------------------
+1. Unzip MicroKeys-@VERSION@-Windows.zip.
+2. Copy the "MicroKeys.vst3" folder into C:\Program Files\Common Files\VST3
+   (Windows will ask for permission).
+3. Copy the "MicroKeys Scales" folder into your Documents folder.
+4. MicroKeys.exe is the standalone app; you can run it from anywhere.
+
+
+USING IT IN FL STUDIO
+---------------------
+1. Options > Manage plugins > Find installed plugins.
+2. MicroKeys appears under Generators. Add it to a channel like any instrument.
+
+If FL Studio or another program is using your MIDI keyboard, close it before
+starting the standalone app, or the keyboard may not respond in one of them.
+
+
+LOADING A TUNING
+----------------
+Click "Load scale..." in MicroKeys and pick a file from Documents\MicroKeys Scales.
+- .mkscale files are complete tunings: every key at its exact pitch.
+- .scl files (in the "Scala files" subfolder) are Scala scales. Select a key
+  first; the scale is placed on that key and the keys above it.
+
+To tune a key yourself: play or click it, then drag the cents slider, or type
+an exact frequency in Hz into the box for that key and press Enter.
+
+
+UNINSTALLING
+------------
+Settings > Apps > Installed apps > MicroKeys > Uninstall.
+Your tunings in Documents\MicroKeys Scales are kept.
+
+
+LICENCES
+--------
+MicroKeys is free software under the GNU Affero General Public License v3.0
+(see LICENSE.txt). It comes with NO WARRANTY. The complete source code,
+including the JUCE framework it is built on, is at
+https://github.com/DMNK154/MicroKeys (tag v@VERSION@) and in the source
+archive attached to the release. Third-party components and their licences
+are listed in THIRD_PARTY_NOTICES.txt.
+
+The tunings by W Ross Warren are licensed under Creative Commons Attribution
+4.0 (https://creativecommons.org/licenses/by/4.0/): you may use, share and
+adapt them, including commercially, as long as you credit W Ross Warren.
+The three scales in the "Examples" subfolder are standard historical scales.
