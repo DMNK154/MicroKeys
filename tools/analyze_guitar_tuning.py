@@ -14,7 +14,7 @@ Method (built from what the first batch taught us):
 Usage: python analyze_guitar_tuning.py recording.wav
 
 Reliability (validated 2026-09-26 on the batch-1 tunings 5 and 7, whose strings
-were established by independent forensic review): it recovered most strings,
+were established by independent re-measurement): it recovered most strings,
 including masked ones, but it can report a string an octave high when its 2nd
 harmonic dominates, it missed one string, and speech before the plucks shows up
 as spurious one-pluck "strings". Treat its output as a lead, not a result, and

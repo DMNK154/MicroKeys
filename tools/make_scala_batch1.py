@@ -1,6 +1,6 @@
-"""Build the Scala-archive submission files for guitar-tuning batch 1.
+"""Build the Scala files for guitar tunings 1 to 8 (batch 1: tunings 1-7, batch 2: tuning 8).
 
-Single source of truth for the seven idealized tunings (the same values the
+Single source of truth for the eight tunings (the same values the
 MicroKeys .mkscale files use). For each tuning this writes a .scl file:
 
 - the scale proper is the octave-reduced set of open-string pitches with the

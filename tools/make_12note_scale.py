@@ -1,4 +1,4 @@
-"""Build the 12-note guitar scale from "New Recording 599.m4a".
+"""Build the 12-note guitar scale from recordings/12-note-scale.m4a.
 
 The player's design: six open strings at nonstandard pitches, plus notes on the
 guitar's ordinary 12-TET frets. So a fretted note's intended pitch is exactly
@@ -11,7 +11,7 @@ open * 2^(fret/12); the recording's fretted notes came out 3-14 cents sharp of t
   note = 1/1, top note as the last degree (archive precedent for fixed-pitch
   instruments, e.g. malawi_bangwe1.scl, marimba1.scl)
 
-Values were confirmed by an independent analyst and a reconciler (2026-09-26).
+Values were cross-checked by independent re-measurement (2026-09-26).
 MicroKeys files put each note on its natural key; other keys follow the nearest
 note of their pitch class, or the low C's offset (make_scala_batch1.mkscale_table).
 """
