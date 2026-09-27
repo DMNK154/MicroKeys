@@ -13,7 +13,7 @@ There is no macOS or Linux download: MicroKeys has only been built and tested on
 ## Features
 
 - **Per-key tuning.** Select a key by playing or clicking it, then drag the cents slider (±200 cents, 0.001-cent steps). The pitch updates while the note is sounding, so you can tune by ear like turning a tuning peg. The slider widens automatically for keys tuned further out.
-- **Exact frequencies.** A row of 12 boxes shows one octave of keys in Hz to three decimals. Pick the octave (C0 to C8) from the Octave menu; it also follows the last key you played. Type a frequency between 1 Hz and 20 kHz and press Enter.
+- **Exact frequencies.** A row of 12 boxes shows one octave of keys in Hz to three decimals. Pick the octave (C0 to C8) from the Octave menu or step through with the < and > buttons beside it; it also follows the last key you played. Type a frequency between 1 Hz and 20 kHz and press Enter.
 - **Tune all octaves.** With the toggle on (the default), retuning one key retunes every key of that pitch class, like a string. Turn it off to tune single keys. **Reset key** and **Reset all** return keys to standard tuning.
 - **Scale files.** Save and load complete tunings as `.mkscale` files.
 - **Scala import.** Load a Scala `.scl` scale with up to 1024 notes per period, including non-octave periods. Its 1/1 goes on the selected key at that key's current frequency, and each following degree goes on the next key up, black and white keys alike, so a 7-note scale repeats every 7 keys. The import retunes all 128 keys.

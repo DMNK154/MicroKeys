@@ -37,8 +37,17 @@ USING IT IN FL STUDIO
 1. Options > Manage plugins > Find installed plugins.
 2. MicroKeys appears under Generators. Add it to a channel like any instrument.
 
-If FL Studio or another program is using your MIDI keyboard, close it before
-starting the standalone app, or the keyboard may not respond in one of them.
+
+USING THE STANDALONE APP
+------------------------
+1. Start MicroKeys from the Start menu (or run MicroKeys.exe).
+2. Click "Options" at the top left, then "Audio/MIDI Settings...".
+3. Pick your audio output, and tick your MIDI keyboard under "Active MIDI
+   inputs". MicroKeys remembers this for next time.
+
+You can also play by clicking the keys on screen. Some MIDI keyboards can
+only be used by one program at a time, so if FL Studio is open and using
+yours, close FL Studio first.
 
 
 LOADING A TUNING
@@ -49,7 +58,9 @@ Click "Load scale..." in MicroKeys and pick a file from Documents\MicroKeys Scal
   first; the scale is placed on that key and the keys above it.
 
 To tune a key yourself: play or click it, then drag the cents slider, or type
-an exact frequency in Hz into the box for that key and press Enter.
+an exact frequency in Hz into the box for that key and press Enter. The Hz
+boxes show one octave at a time; choose another with the Octave menu or the
+< and > buttons beside it.
 
 
 UNINSTALLING
