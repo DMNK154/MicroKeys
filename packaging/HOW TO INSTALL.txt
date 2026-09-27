@@ -2,7 +2,7 @@ MicroKeys @VERSION@ for Windows (64-bit)
 ========================================
 
 MicroKeys is a microtonal instrument: you can tune every key of your keyboard
-individually. It comes as a VST3 plugin (for FL Studio and other music
+individually. It comes as a VST® 3 plugin (for FL Studio and other music
 software) and as a standalone app that runs on its own.
 
 Website and source code: https://github.com/DMNK154/MicroKeys
@@ -71,3 +71,6 @@ The tunings by W Ross Warren are licensed under Creative Commons Attribution
 4.0 (https://creativecommons.org/licenses/by/4.0/): you may use, share and
 adapt them, including commercially, as long as you credit W Ross Warren.
 The three scales in the "Examples" subfolder are standard historical scales.
+
+VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe
+and other countries. See "VST Compatible logo.png".

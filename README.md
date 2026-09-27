@@ -1,6 +1,8 @@
 # MicroKeys
 
-A microtonal instrument plugin (VST3 and standalone) that lets you tune every key of a MIDI keyboard individually, the way you would retune the strings of a guitar. It was built to play by-ear open guitar tunings on a keyboard. This repository includes those tunings, the recordings they were measured from, the scripts that turn the measurements into scale files, and a first-pass analyzer for new recordings.
+<img src="docs/vst-compatible-logo.png" alt="VST Compatible. VST is a registered trademark of Steinberg Media Technologies GmbH" width="120" align="right">
+
+A microtonal instrument plugin (VST® 3 and standalone) that lets you tune every key of a MIDI keyboard individually, the way you would retune the strings of a guitar. It was built to play by-ear open guitar tunings on a keyboard. This repository includes those tunings, the recordings they were measured from, the scripts that turn the measurements into scale files, and a first-pass analyzer for new recordings.
 
 ## Download
 
@@ -121,3 +123,5 @@ Copyright (C) 2026 W Ross Warren.
 The recordings (`recordings/`) and the tunings (`tunings/full-tuning-1/`, `tunings/guitar/` and `scala/`) are licensed under the [Creative Commons Attribution 4.0 International licence (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/): you may use, share and adapt them, including commercially, as long as you credit W Ross Warren.
 
 The MicroKeys software (everything else, including the code in `Source/` and `tools/`) is licensed under the [GNU Affero General Public License v3.0](LICENSE). It is built on the JUCE framework, whose modules are dual-licensed under the AGPLv3 and the commercial JUCE licence. The VST3 build also uses Steinberg's VST3 SDK, which JUCE bundles under GPLv3 or Steinberg's proprietary licence. See `JUCE/LICENSE.md`.
+
+VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.

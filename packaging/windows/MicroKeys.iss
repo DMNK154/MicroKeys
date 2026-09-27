@@ -57,6 +57,7 @@ Source: "{#StageDir}\MicroKeys Scales\*"; DestDir: "{code:TuningsDir}"; Componen
 Source: "{#StageDir}\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#StageDir}\THIRD_PARTY_NOTICES.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#StageDir}\HOW TO INSTALL.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#StageDir}\VST Compatible logo.png"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\MicroKeys"; Filename: "{app}\MicroKeys.exe"; Components: standalone

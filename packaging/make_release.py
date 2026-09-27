@@ -61,8 +61,11 @@ def stage(build, dest, ver):
 
     shutil.copy2(os.path.join(REPO, "LICENSE"), os.path.join(dest, "LICENSE.txt"))
     shutil.copy2(os.path.join(REPO, "packaging", "THIRD_PARTY_NOTICES.txt"), dest)
+    shutil.copy2(os.path.join(REPO, "docs", "vst-compatible-logo.png"),
+                 os.path.join(dest, "VST Compatible logo.png"))
     howto = open(os.path.join(REPO, "packaging", "HOW TO INSTALL.txt"), encoding="utf-8").read()
-    with open(os.path.join(dest, "HOW TO INSTALL.txt"), "w", encoding="utf-8", newline="\r\n") as f:
+    # UTF-8 with BOM so Notepad and the installer's info page both show the (R) sign correctly.
+    with open(os.path.join(dest, "HOW TO INSTALL.txt"), "w", encoding="utf-8-sig", newline="\r\n") as f:
         f.write(howto.replace("@VERSION@", ver))
 
 
