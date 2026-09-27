@@ -16,14 +16,14 @@ There is no macOS or Linux download: MicroKeys has only been built and tested on
 - **Exact frequencies.** A row of 12 boxes shows one octave of keys in Hz to three decimals. Pick the octave (C0 to C8) from the Octave menu or step through with the < and > buttons beside it; it also follows the last key you played. Type a frequency between 1 Hz and 20 kHz and press Enter.
 - **Tune all octaves.** With the toggle on (the default), retuning one key retunes the same key in every other octave, like a string. Turn it off to tune single keys. **Reset key** returns a key to standard tuning; **Reset all** returns every key to standard tuning and sets Keys per octave back to 12.
 - **Keys per octave.** The Keys per octave menu, beside the selected key's frequency, says how many keys it takes to reach the octave: 12 (normal), or 5, 7, 19, 22, 24 (quarter tones) or 31. Changing it retunes nothing; it only tells Tune all octaves which keys are octaves of each other. With 24, retuning C4 also puts C6 at exactly twice its frequency and C2 at exactly half, and leaves C5 alone. When it isn't 12 and Tune all octaves is on, the keys a change will reach are tinted orange on the keyboard. The Hz boxes still show 12 piano keys at a time, and the slider and cents readout still measure each key from its standard piano pitch, so in a 24-key layout many keys read several hundred cents: type their Hz in the boxes, then fine-tune with the slider.
-- **Scale files.** Save and load complete tunings as `.mkscale` files. A file also remembers Keys per octave when it isn't 12.
+- **Scale files.** Save and load complete tunings as `.mkscale` files. The Save and Load dialogs remember the last folder you used. A file also remembers Keys per octave when it isn't 12.
 - **Scala import.** Load a Scala `.scl` scale with up to 1024 notes per period, including non-octave periods. Its 1/1 goes on the selected key at that key's current frequency, and each following degree goes on the next key up, black and white keys alike, so a 7-note scale repeats every 7 keys. The import retunes all 128 keys. If the scale repeats at an exact octave (2/1) and has 5, 7, 12, 19, 22, 24 or 31 notes, Keys per octave is set to match; the import message mentions it when the setting changes. Step-by-step instructions are in [Importing Scala scales](#importing-scala-scales).
 - **Scale name display.** The current scale's name is shown, with "(edited)" once you change a key. The tuning, the name and the Keys per octave setting are saved with your DAW project.
 - **Sound.** A 16-voice FM electric-piano voice with Gain, Brightness, Attack, Decay, Sustain and Release controls.
 
 ## Using the tunings
 
-Click **Load scale...** in the plugin and browse to a `.mkscale` or `.scl` file. The dialog opens in your `Documents\MicroKeys Scales` folder, which the plugin creates the first time you click Save or Load. If your Documents folder is synced by OneDrive, it is `OneDrive\Documents\MicroKeys Scales`. Copy the files there to keep them at hand.
+Click **Load scale...** in the plugin and browse to a `.mkscale` or `.scl` file. The Save and Load dialogs open in the folder you last saved to or loaded from, even after a restart. The first time, they open in your `Documents\MicroKeys Scales` folder, which the plugin creates then. If your Documents folder is synced by OneDrive, it is `OneDrive\Documents\MicroKeys Scales`. Copy the files there to keep them at hand.
 
 For the guitar tunings, load the `.mkscale` files, which put each string on its own key at its exact frequency. The `.scl` versions are for Scala and other Scala-compatible instruments; loaded into MicroKeys they place the scale degrees on consecutive keys instead.
 
@@ -46,7 +46,7 @@ Importing replaces the tuning of every key, with no undo, and so does **Reset al
 2. **Set the root's pitch.** The 1/1 takes the root key's current frequency, even one left over from a tuning or scale you loaded earlier.
    - For the key's standard piano pitch (for example 261.626 Hz on C4, or 440 Hz on A4), click **Reset all** first. The key you picked stays selected. Only the root keeps that pitch: every other key, A4 included, moves to the scale.
    - For any other pitch, type it into the root key's Hz box and press Enter, for example 256 on C4.
-3. **Import the file.** Click **Load scale...** and choose the `.scl` file. The dialog lists `.mkscale` and `.scl` files together. To try it out, open the **Examples** folder and choose `ptolemy_intense_diatonic.scl`.
+3. **Import the file.** Click **Load scale...** and choose the `.scl` file. The dialog lists `.mkscale` and `.scl` files together. To try it out, go to `Documents\MicroKeys Scales\Examples` and choose `ptolemy_intense_diatonic.scl`.
 4. **Check the summary.** A message shows the scale's description and where it landed, for example: "7 notes per period (1200.00 cents), root 1/1 on C4 at 261.626 Hz." The file name appears as the scale name at the top right.
 5. **Play it.** Start on the root and go up one key at a time, black and white alike: each key plays the next degree. A 7-note scale on C4 reaches its octave at G4, not C5, so the white keys alone won't play it.
 
@@ -108,7 +108,7 @@ For example, the 12-note just intonation in **Examples** puts 5/3 on A4 when its
 - **`Scala files`** (installed in `Documents\MicroKeys Scales\Scala files`; `scala/` in this repository): this project's by-ear guitar tunings as Scala scales of 3 to 11 notes, so they spread across many octaves of keys.
   - To play a guitar tuning with each string on its own key, load its `.mkscale` file instead (see [Using the tunings](#using-the-tunings)).
   - To hear a `.scl` version at the guitar's pitch, type the 1/1 frequency from its description (for example 63.55 Hz for `guitar1.scl`) into the root key's Hz box before importing.
-- **The [Scala scale archive](https://www.huygens-fokker.org/docs/scales.zip)** from the Huygens-Fokker Foundation. The link downloads a zip of thousands of `.scl` files. Right-click the downloaded zip, choose **Extract All...**, and extract it into your `Documents\MicroKeys Scales` folder (the scales land in an `scl` subfolder).
+- **The [Scala scale archive](https://www.huygens-fokker.org/docs/scales.zip)** from the Huygens-Fokker Foundation. The link downloads a zip of thousands of `.scl` files. Right-click the downloaded zip, choose **Extract All...**, and extract it anywhere, for example into your `Documents\MicroKeys Scales` folder (the scales land in an `scl` subfolder). The Load dialog remembers the last folder you used.
 - **Your own scales:** the [`.scl` format description](https://www.huygens-fokker.org/scala/scl_format.html) explains how to write one.
 
 ### If something goes wrong

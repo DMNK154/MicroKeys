@@ -1,4 +1,5 @@
 #include "PluginEditor.h"
+#include "FolderProbe.h"
 #include "ScalaScale.h"
 
 static const char* const standardHint =
@@ -255,10 +256,51 @@ juce::File MicroKeysEditor::scalesFolder()
     return dir;
 }
 
+// The Save and Load dialogs open in the folder last saved to or loaded from. It is kept
+// across sessions and shared by every MicroKeys instance, in its own file (on Windows
+// %APPDATA%/MicroKeys/MicroKeys Preferences.settings), apart from the standalone app's
+// settings file, which JUCE manages. Each call reads or writes the file afresh, so no
+// instance works from a stale copy.
+static juce::PropertiesFile::Options preferencesOptions()
+{
+    juce::PropertiesFile::Options options;
+    options.applicationName = "MicroKeys Preferences";
+    options.folderName = "MicroKeys";
+    options.filenameSuffix = ".settings";
+    options.osxLibrarySubFolder = "Application Support";
+    return options;
+}
+
+juce::File MicroKeysEditor::dialogFolder()
+{
+    juce::PropertiesFile preferences(preferencesOptions());
+    const auto path = preferences.getValue("lastScaleFolder");
+
+    if (juce::File::isAbsolutePath(path))
+    {
+        if (isReachableFolder(juce::File(path), 1000))
+            return juce::File(path);
+
+        // Deleted, on an unplugged drive, or on a share that isn't answering: forget it,
+        // so the next click doesn't wait for it again.
+        preferences.removeValue("lastScaleFolder");
+        preferences.saveIfNeeded();
+    }
+
+    return scalesFolder();
+}
+
+void MicroKeysEditor::rememberDialogFolder(const juce::File& chosenFile)
+{
+    juce::PropertiesFile preferences(preferencesOptions());
+    preferences.setValue("lastScaleFolder", chosenFile.getParentDirectory().getFullPathName());
+    preferences.saveIfNeeded();
+}
+
 void MicroKeysEditor::saveScale()
 {
     fileChooser = std::make_unique<juce::FileChooser>(
-        "Save scale", scalesFolder().getChildFile("MyScale.mkscale"), "*.mkscale");
+        "Save scale", dialogFolder().getChildFile("MyScale.mkscale"), "*.mkscale");
 
     fileChooser->launchAsync(juce::FileBrowserComponent::saveMode
                                  | juce::FileBrowserComponent::canSelectFiles
@@ -300,6 +342,7 @@ void MicroKeysEditor::saveScale()
                 return;
             }
 
+            rememberDialogFolder(file);
             processor.setScaleName(file.getFileNameWithoutExtension());
             updateScaleLabel();
         });
@@ -308,7 +351,7 @@ void MicroKeysEditor::saveScale()
 void MicroKeysEditor::loadScale()
 {
     fileChooser = std::make_unique<juce::FileChooser>("Load scale (.mkscale or Scala .scl)",
-                                                      scalesFolder(), "*.mkscale;*.scl");
+                                                      dialogFolder(), "*.mkscale;*.scl");
 
     fileChooser->launchAsync(juce::FileBrowserComponent::openMode
                                  | juce::FileBrowserComponent::canSelectFiles,
@@ -329,6 +372,8 @@ void MicroKeysEditor::loadScale()
                                                   nullptr);
                 return;
             }
+
+            rememberDialogFolder(file);
 
             if (file.getFileExtension().equalsIgnoreCase(".scl"))
             {

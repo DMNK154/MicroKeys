@@ -52,7 +52,9 @@ yours, close FL Studio first.
 
 LOADING A TUNING
 ----------------
-Click "Load scale..." in MicroKeys and pick a file from Documents\MicroKeys Scales.
+Click "Load scale..." in MicroKeys and pick a file. The dialog opens in the
+folder you last saved to or loaded from; the first time, that is
+Documents\MicroKeys Scales.
 - .mkscale files are complete tunings: every key at its exact pitch.
 - .scl files are Scala scales (see IMPORTING A SCALA SCALE below).
 
@@ -92,8 +94,9 @@ undo. If you have tuned keys you want to keep, click "Save scale..." first.
    you loaded before. For the key's standard piano pitch, click "Reset all"
    (the key stays selected). For another pitch, type it into the key's Hz
    box and press Enter.
-3. Click "Load scale..." and choose the .scl file. To try it out, open
-   "Examples" and choose ptolemy_intense_diatonic.scl.
+3. Click "Load scale..." and choose the .scl file. To try it out, go to
+   Documents\MicroKeys Scales\Examples and choose
+   ptolemy_intense_diatonic.scl.
 4. A message confirms the scale, its period and where the root landed.
 5. Play upward from the root one key at a time, black and white keys
    alike. Each key is the next degree: a 7-note scale on C4 reaches its

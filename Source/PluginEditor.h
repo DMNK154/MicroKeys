@@ -92,6 +92,8 @@ private:
     void loadScale();
     void importScala(const juce::File& file);
     static juce::File scalesFolder();
+    static juce::File dialogFolder(); // where Save and Load open: the folder last used
+    static void rememberDialogFolder(const juce::File& chosenFile);
 
     void stepOctave(int delta);
 

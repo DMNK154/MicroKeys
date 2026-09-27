@@ -26,7 +26,8 @@ juce_add_plugin(MicroKeys
 
 target_sources(MicroKeys PRIVATE
     Source/PluginProcessor.cpp
-    Source/PluginEditor.cpp)
+    Source/PluginEditor.cpp
+    Source/FolderProbe.cpp)
 
 target_compile_definitions(MicroKeys PUBLIC
     JUCE_WEB_BROWSER=0
