@@ -1,0 +1,35 @@
+! guitar9.scl
+!
+12-note scale on a CGCGCD guitar: open strings plus 12-TET frets, low C to F, 1/1=63.32 Hz
+ 11
+!
+ 200.00000
+ 705.77852
+ 905.77852
+ 1197.40065
+ 1397.40065
+ 1896.75240
+ 2096.75240
+ 2408.31899
+ 2610.03569
+ 2810.03569
+ 2910.03569
+!
+! Twelve fixed pitches, lowest = 1/1, top note as the last degree (not octave-reduced).
+! The six open strings are as tuned; fretted notes are exact 12-TET steps above them.
+! Notes low to high: string/fret, Hz, cents above 1/1, as played (cents from ideal):
+!   string 6 open       63.320 Hz      0.000 c  ~C2
+!   string 6 fret 2     71.074 Hz    200.000 c  ~D2  played 71.63 (+13.5)
+!   string 5 open       95.190 Hz    705.779 c  ~G2
+!   string 5 fret 2    106.847 Hz    905.779 c  ~A2  played 107.44 (+9.6)
+!   string 4 open      126.450 Hz   1197.401 c  ~C3
+!   string 4 fret 2    141.935 Hz   1397.401 c  ~D3  played 142.78 (+10.3)
+!   string 3 open      189.390 Hz   1896.752 c  ~G3
+!   string 3 fret 2    212.583 Hz   2096.752 c  ~A3  played 212.00 (-4.8)
+!   string 2 open      254.500 Hz   2408.319 c  ~C4
+!   string 1 open      285.950 Hz   2610.036 c  ~D4
+!   string 1 fret 2    320.968 Hz   2810.036 c  ~E4  played 321.86 (+4.8)
+!   string 1 fret 3    340.054 Hz   2910.036 c  ~F4  played 340.66 (+3.1)
+! Fretted notes were played 3-14 cents sharp of 12-TET (normal fretting sharpness),
+! except string 3 fret 2: its weak fundamental read 4.8 cents flat, its overtones 3.9 sharp.
+! Tuned by ear and recorded in 2026.

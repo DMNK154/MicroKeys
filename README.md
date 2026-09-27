@@ -1,0 +1,109 @@
+# MicroKeys
+
+A microtonal instrument plugin (VST3 and standalone) that lets you tune every key of a MIDI keyboard individually, the way you would retune the strings of a guitar. It was built to play by-ear open guitar tunings on a keyboard, and this repository includes those tunings, the recordings they were measured from, and the tools used to measure them.
+
+## Features
+
+- **Per-key tuning.** Select a key by playing or clicking it, then drag the cents slider (±200 cents, 0.001-cent steps). The pitch updates while the note is sounding, so you can tune by ear like turning a tuning peg. The slider widens automatically for keys tuned further out.
+- **Exact frequencies.** A row of 12 boxes shows every key of the current octave in Hz to three decimals. Type any frequency from 1 Hz to 20 kHz and press Enter. The octave follows the last key you played.
+- **Tune all octaves.** With the toggle on, retuning one key retunes every key of that pitch class, like a string. Turn it off to tune single keys.
+- **Scale files.** Save and load complete 128-key tunings as `.mkscale` files.
+- **Scala import.** Load any Scala `.scl` scale. Its 1/1 is placed on the selected key at that key's current frequency, and any number of notes per period is supported, including non-octave periods.
+- **Scale name display.** The current scale's name is shown, with "(edited)" once you change a key. The tuning and the name are saved with your DAW project.
+- **Sound.** A 16-voice FM electric-piano voice with Gain, Brightness, Attack, Decay, Sustain and Release controls.
+
+## Using the tunings
+
+Copy `.mkscale` or `.scl` files into your `Documents\MicroKeys Scales` folder (the plugin creates it; if your Documents folder is synced by OneDrive, it is `OneDrive\Documents\MicroKeys Scales`). Then click **Load scale...** in the plugin.
+
+`.mkscale` files are plain XML: one `<Key note="0-127" cents="..."/>` line per MIDI key, giving that key's offset in cents from standard A440 tuning.
+
+## The tunings
+
+All tunings are by W Ross Warren. They were tuned by ear on a standard (12-TET fretted) guitar, recorded, and measured from the recordings by spectral analysis. "Idealized" versions set an interval to a pure ratio only where the measurement was within about 3.3 cents of it and the ear was plausibly aiming at it. Everything else is kept as played. Fretted notes are idealized to exact 12-TET steps above their open string, because that is what a fretted guitar produces.
+
+### `tunings/full-tuning-1/`
+
+| File | What it is |
+|---|---|
+| `Full Tuning #1.mkscale` | The 12-note guitar scale (below) with the black keys set by hand: C# and D# the same small step (61 cents) above C4 and D4, G# and A# the same step (95.5 cents) above G and A, and F# close to string 1, fret 4. |
+| `Full Tuning #1 (idealized).mkscale` | Each black-key pair locked exactly together (every change is under 0.2 cents). |
+| `Full Tuning #1 (idealized, frets).mkscale` | F#, G# and A# set to the exact 12-TET first-position frets on this tuning (string 1 fret 4; string 3 frets 1 and 3). |
+
+### `tunings/guitar/`
+
+Each file puts the open strings on their keys at the measured or idealized frequencies. Keys of the same pitch class follow the nearest string, and the remaining keys sit at 12-TET steps from the lowest string, like frets.
+
+| File | Tuning |
+|---|---|
+| `Guitar-CGCGCD.mkscale` | Tuning 1 as measured: CGCGCD, about a quarter-tone flat of A440. |
+| `Guitar-CGCGCD-Just.mkscale` | Tuning 1 in 3-limit just intonation: 1/1, 3/2, 2/1, 3/1, 4/1, 9/2 above 63.55 Hz. |
+| `Guitar-PythComma-Just.mkscale` | Tuning 2: lower strings 1/1, 4/3, 27/16; upper strings 2/1, 3/1, 4/1 each lowered by a Pythagorean comma. |
+| `Guitar-ByEar3.mkscale` | Tuning 3: kept as played apart from one pure 5/2 between strings 6 and 3. |
+| `Guitar-ByEar4.mkscale` | Tuning 4: 1/1, 4/3, 5/3, plus 4/3 and 5/3 each 10.8 cents higher, and an octave 7.5 cents narrow. |
+| `Guitar-ByEar5.mkscale` | Tuning 5: a pure 3/2 and a second fifth 9.8 cents wider, a slightly wide fourth, and narrowed octaves. |
+| `Guitar-ByEar6.mkscale` | Tuning 6: a 396.8-cent major third, fifths of 696.6 and 710.3 cents, and wide octaves. |
+| `Guitar-ByEar7.mkscale` | Tuning 7: fifths of 711.6 and 720.3 cents, wide octaves, and a pure 3/2 and 8/3 above string 4. |
+| `Guitar-ByEar8.mkscale` | Tuning 8: CGCGCD retuned by ear; only the 3/2 between strings 6 and 5 is idealized. |
+| `Guitar-12Note.mkscale` | The 12-note scale as played: the six CGCGCD open strings plus fretted notes a whole tone above most of them (and a minor third above the top string). |
+| `Guitar-12Note-Ideal.mkscale` | The same 12 notes with every fretted note at an exact 12-TET step above its open string. |
+
+### `scala/`
+
+The same tunings as Scala `.scl` files, for use in Scala or any Scala-compatible instrument.
+
+- `batch-1/guitar1.scl` to `guitar7.scl`: tunings 1 to 7, each as the octave-reduced set of its open strings with the lowest string as 1/1. The comment lines in each file list every open string unreduced, with its frequency.
+- `batch-2/guitar8.scl`: tuning 8.
+- `batch-2/guitar9.scl`: the 12-note scale as 12 fixed pitches, not octave-reduced, with the top note as the last degree.
+
+### `tunings/examples/`
+
+Three standard reference scales for trying the Scala import: Ptolemy's intense diatonic, 12-note 5-limit just intonation, and quarter-comma meantone.
+
+### `recordings/`
+
+The recordings the tunings were measured from.
+
+| Recording | Tuning |
+|---|---|
+| `tuning1-cgcgcd.m4a` | Tuning 1 |
+| `tuning2-pythagorean-comma.m4a` | Tuning 2 |
+| `tuning3.m4a` to `tuning7.m4a` | Tunings 3 to 7 |
+| `tuning8-cgcgcd.m4a` | Tuning 8 (each string plucked on its own) |
+| `12-note-scale.m4a` | The 12-note scale |
+
+## Building
+
+MicroKeys uses [JUCE 8](https://juce.com/) (included as a git submodule) and CMake. It has been built and tested on Windows with FL Studio.
+
+Requirements: Visual Studio 2022 or the Visual Studio 2022 Build Tools with the "Desktop development with C++" workload, CMake 3.22 or newer, and git.
+
+```bash
+git clone --recursive https://github.com/DMNK154/MicroKeys.git
+cd MicroKeys
+cmake -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Release --target MicroKeys_VST3 MicroKeys_Standalone
+```
+
+The results are in `build/MicroKeys_artefacts/Release/`:
+
+- `VST3/MicroKeys.vst3`: copy this folder to `C:\Program Files\Common Files\VST3\`, then rescan plugins in your DAW. In FL Studio that is Options > Manage plugins > Find installed plugins.
+- `Standalone/MicroKeys.exe`: runs without a DAW. Set the audio and MIDI devices under Options.
+
+If you already cloned without `--recursive`, run `git submodule update --init` before building.
+
+Keep the source folder on a short path. JUCE's build tools can fail when the path goes past Windows' 260-character limit.
+
+## Tools
+
+Python scripts in `tools/` (they need Python 3 with numpy; the analyzer also needs scipy):
+
+- `make_scala_batch1.py`: the source of truth for the guitar tunings. It writes the `.scl` files, rebuilds the `.mkscale` files for tunings 5 to 8, and checks every `.scl` against its `.mkscale`.
+- `make_12note_scale.py`: builds the 12-note scale files.
+- `analyze_guitar_tuning.py`: a first-pass analyzer that finds each pluck in a recording and the string it adds. Treat its output as leads only: on known recordings it sometimes reports a string an octave too high and mistakes speech for extra strings.
+
+The scripts read and write your MicroKeys Scales folder. Set the `MICROKEYS_SCALES_DIR` environment variable if yours is somewhere other than `~/OneDrive/Documents/MicroKeys Scales`.
+
+## License
+
+MicroKeys is licensed under the [GNU Affero General Public License v3.0](LICENSE). It is built on the JUCE framework, whose modules are dual-licensed under the AGPLv3 and the commercial JUCE licence; see `JUCE/LICENSE.md`.

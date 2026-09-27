@@ -1,0 +1,28 @@
+! guitar8.scl
+!
+By-ear CGCGCD guitar tuning: pure 3/2, and 2/1 3/1 4/1 9/2 off by -4.7, -8.1, +5.6, +2.6 c, 1/1=63.61 Hz
+ 6
+!
+ 5.63821
+ 206.47853
+ 693.86192
+ 3/2
+ 1195.32609
+ 2/1
+!
+! Open-string guitar tuning, lowest string = 1/1 = 63.610 Hz.
+! The scale above is the octave-reduced set of the open strings listed below.
+! ~names are approximate 12-TET (A=440) note names.
+! Open strings, low to high (cents above the lowest string, not reduced):
+!   string 6:    63.610 Hz      0.000 c               1/1  ~C2
+!   string 5:    95.415 Hz    701.955 c               3/2  ~G2
+!   string 4:   126.877 Hz   1195.326 c                 -  ~C3
+!   string 3:   189.940 Hz   1893.862 c                 -  ~G3  (three modes, 188.6/189.4/190.35 Hz)
+!   string 2:   255.270 Hz   2405.638 c                 -  ~C4
+!   string 1:   286.670 Hz   2606.479 c                 -  ~D4
+! Measured from a recording with each string plucked alone; only the 3/2 was idealized
+! (measured -2.0 cents from pure). Same CGCGCD shape as guitar1, but not idealized to JI.
+! String 3 rings in three close modes; their settled centre is used (about +/-5 cents).
+! String 5 is the centre of a close doublet (95.27/95.35 Hz); strings 2 and 1 read about
+! 4 cents above their own overtone series.
+! Tuned by ear and recorded in 2026.

@@ -1,0 +1,27 @@
+! guitar2.scl
+!
+By-ear guitar tuning idealized to 3-limit JI: 1/1 4/3 27/16, and 2/1 3/1 4/1 less a Pythagorean comma, 1/1=89.89 Hz
+ 5
+!
+ 4/3
+ 262144/177147
+ 27/16
+ 1048576/531441
+ 2/1
+!
+! Open-string guitar tuning, lowest string = 1/1 = 89.890 Hz.
+! The scale above is the octave-reduced set of the open strings listed below.
+! ~names are approximate 12-TET (A=440) note names.
+! Open strings, low to high (cents above the lowest string, not reduced):
+!   string 6:    89.890 Hz      0.000 c               1/1  ~F#2
+!   string 5:   119.853 Hz    498.045 c               4/3  ~B2
+!   string 4:   151.689 Hz    905.865 c             27/16  ~D#3
+!   string 3:   177.360 Hz   1176.540 c    1048576/531441  ~F3
+!   string 2:   266.040 Hz   1878.495 c     524288/177147  ~C4
+!   string 1:   354.720 Hz   2376.540 c    2097152/531441  ~F4
+! Lower strings 1/1 4/3 27/16 lie at 0, -1 and +3 pure fifths from the lowest string;
+! upper strings are 2/1 3/1 4/1 each lowered by a Pythagorean comma (-12, -11, -12 fifths).
+! Idealized from a recording: the measured lower strings were within 2.8 cents of these
+! values; the upper strings measured 24.0, 13.0 and 17.7 cents below 2/1, 3/1 and 4/1,
+! i.e. -0.6, +10.4 and +5.7 cents from the comma-lowered values used here.
+! Tuned by ear and recorded in 2026.

@@ -1,0 +1,28 @@
+! guitar5.scl
+!
+By-ear guitar tuning: 3/2, plus 3/2 raised 9.8 c, 4/3 raised 5.0 c, and 2/1 less 2.3 c and 5.3 c, 1/1=89.47 Hz
+ 6
+!
+ 503.06867
+ 3/2
+ 711.79542
+ 1194.67059
+ 1197.67646
+ 2/1
+!
+! Open-string guitar tuning, lowest string = 1/1 = 89.470 Hz.
+! The scale above is the octave-reduced set of the open strings listed below.
+! ~names are approximate 12-TET (A=440) note names.
+! Open strings, low to high (cents above the lowest string, not reduced):
+!   string 6:    89.470 Hz      0.000 c               1/1  ~F2
+!   string 5:   119.640 Hz    503.069 c                 -  ~A#2
+!   string 4:   134.205 Hz    701.955 c               3/2  ~C3
+!   string 3:   178.700 Hz   1197.676 c                 -  ~F3
+!   string 2:   269.940 Hz   1911.795 c                 -  ~C#4  (masked)
+!   string 1:   356.780 Hz   2394.671 c                 -  ~F4
+! Measured from a recording; only the 3/2 was idealized (measured +1.1 cents from pure).
+! String 2 hides among the lower strings' harmonics and was found by comparing the
+! spectrum before and after each pluck. It is about an octave above string 4; its
+! fundamental reads about 5 cents above its overtones, so its pitch is less certain.
+! The 1197.68-cent degree is 2.3 cents narrow of 2/1, close to the measurement uncertainty.
+! Tuned by ear and recorded in 2026.

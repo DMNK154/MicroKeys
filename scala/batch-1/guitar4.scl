@@ -1,0 +1,26 @@
+! guitar4.scl
+!
+By-ear guitar tuning: 1/1 4/3 5/3 plus 4/3 and 5/3 each 10.8 c higher, and 2/1 less 7.5 c, 1/1=89.41 Hz
+ 6
+!
+ 4/3
+ 508.85439
+ 5/3
+ 895.16810
+ 1192.52920
+ 2/1
+!
+! Open-string guitar tuning, lowest string = 1/1 = 89.410 Hz.
+! The scale above is the octave-reduced set of the open strings listed below.
+! ~names are approximate 12-TET (A=440) note names.
+! Open strings, low to high (cents above the lowest string, not reduced):
+!   string 6:    89.410 Hz      0.000 c               1/1  ~F2
+!   string 5:   119.960 Hz    508.854 c                 -  ~A#2
+!   string 4:   149.017 Hz    884.359 c               5/3  ~D3
+!   string 3:   178.050 Hz   1192.529 c                 -  ~F3
+!   string 2:   238.427 Hz   1698.045 c               8/3  ~A#3
+!   string 1:   299.900 Hz   2095.168 c                 -  ~D4  (pure 5/2 above string 5)
+! Measured from a recording; 5/3, 8/3 and the 5/2 were idealized (measured +1.2, +3.1
+! and -3.3 cents from pure). As a result string 5 to string 2 is an octave 10.8 cents
+! narrow and string 4 to string 1 one 10.8 cents wide (measured -7.7 and +6.3 cents).
+! Tuned by ear and recorded in 2026.

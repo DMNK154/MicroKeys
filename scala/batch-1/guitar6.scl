@@ -1,0 +1,28 @@
+! guitar6.scl
+!
+By-ear guitar tuning: major third 396.8 c, fifths 696.6 c and 710.3 c, octave 4.9 c and double octave 14.6 c wide, 1/1=89.37 Hz
+ 6
+!
+ 4.93271
+ 14.56408
+ 396.78138
+ 696.58723
+ 710.32905
+ 2/1
+!
+! Open-string guitar tuning, lowest string = 1/1 = 89.370 Hz.
+! The scale above is the octave-reduced set of the open strings listed below.
+! ~names are approximate 12-TET (A=440) note names.
+! Open strings, low to high (cents above the lowest string, not reduced):
+!   string 6:    89.370 Hz      0.000 c               1/1  ~F2  (ringing, not plucked)
+!   string 5:   112.390 Hz    396.781 c                 -  ~A2
+!   string 4:   133.640 Hz    696.587 c                 -  ~C3
+!   string 3:   179.250 Hz   1204.933 c                 -  ~F3  (brief initial mode 178.5 Hz)
+!   string 2:   269.410 Hz   1910.329 c                 -  ~C#4  (masked)
+!   string 1:   360.500 Hz   2414.564 c                 -  ~F#4
+! Measured from a recording; nothing was idealized. String 3's settled pitch is used;
+! its 178.5 Hz initial mode dies within about a second.
+! String 2 hides among the lower strings' harmonics and was found by comparing the
+! spectrum before and after each pluck. It is about an octave above string 4; its
+! fundamental reads about 9 cents above its overtones, so its pitch is less certain.
+! Tuned by ear and recorded in 2026.

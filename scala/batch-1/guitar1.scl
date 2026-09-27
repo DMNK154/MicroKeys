@@ -1,0 +1,23 @@
+! guitar1.scl
+!
+By-ear CGCGCD (open Csus2) guitar tuning idealized to 3-limit JI, 1/1=63.55 Hz
+ 3
+!
+ 9/8
+ 3/2
+ 2/1
+!
+! Open-string guitar tuning, lowest string = 1/1 = 63.550 Hz.
+! The scale above is the octave-reduced set of the open strings listed below.
+! ~names are approximate 12-TET (A=440) note names.
+! Open strings, low to high (cents above the lowest string, not reduced):
+!   string 6:    63.550 Hz      0.000 c               1/1  ~C2
+!   string 5:    95.325 Hz    701.955 c               3/2  ~G2
+!   string 4:   127.100 Hz   1200.000 c               2/1  ~C3
+!   string 3:   190.650 Hz   1901.955 c               3/1  ~G3
+!   string 2:   254.200 Hz   2400.000 c               4/1  ~C4
+!   string 1:   285.975 Hz   2603.910 c               9/2  ~D4
+! The open strings are harmonics 2:3:4:6:8:9 of the pitch an octave below the 1/1.
+! Idealized from a recording; the other measured strings were within 4.1 cents of these
+! values. String 3 was uncertain: its fundamental read +5 cents, its overtones about +13.
+! Tuned by ear and recorded in 2026.
