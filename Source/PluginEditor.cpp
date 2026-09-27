@@ -1,6 +1,9 @@
 #include "PluginEditor.h"
 #include "ScalaScale.h"
 
+static const char* const standardHint =
+    "Play or click a key to select it, drag the slider to tune by ear, or type an exact Hz value below and press Enter.";
+
 MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     : AudioProcessorEditor(&p),
       processor(p),
@@ -16,8 +19,7 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     scaleNameLabel.setColour(juce::Label::textColourId, juce::Colours::orange);
     addAndMakeVisible(scaleNameLabel);
 
-    hintLabel.setText("Play or click a key to select it, drag the slider to tune by ear, or type an exact Hz value below and press Enter.",
-                      juce::dontSendNotification);
+    hintLabel.setText(standardHint, juce::dontSendNotification);
     hintLabel.setFont(juce::FontOptions(13.0f));
     hintLabel.setColour(juce::Label::textColourId, juce::Colours::grey);
     addAndMakeVisible(hintLabel);
@@ -38,7 +40,31 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     addAndMakeVisible(centsSlider);
 
     allOctavesToggle.setToggleState(true, juce::dontSendNotification);
+    allOctavesToggle.onClick = [this] { updateKeyboardChain(); };
     addAndMakeVisible(allOctavesToggle);
+
+    const juce::String keysPerOctaveTip = "How many keys it takes to reach the octave (double the pitch). "
+                                          "Changing this retunes nothing: it only sets how far apart "
+                                          "Tune all octaves copies a key.";
+    keysPerOctaveLabel.setText("Keys per octave:", juce::dontSendNotification);
+    keysPerOctaveLabel.setJustificationType(juce::Justification::centredRight);
+    keysPerOctaveLabel.setTooltip(keysPerOctaveTip);
+    addAndMakeVisible(keysPerOctaveLabel);
+
+    for (int n : MicroKeysProcessor::keysPerOctaveChoices)
+        keysPerOctaveBox.addItem(n == 12   ? juce::String("12 (normal)")
+                                 : n == 24 ? juce::String("24 (quarter tones)")
+                                           : juce::String(n),
+                                 n); // item id = N, never 0
+    keysPerOctaveBox.setTitle("Keys per octave");
+    keysPerOctaveBox.setTooltip(keysPerOctaveTip);
+    keysPerOctaveBox.onChange = [this]
+    {
+        processor.setKeysPerOctave(keysPerOctaveBox.getSelectedId()); // retunes nothing
+        syncKeysPerOctave();
+    };
+    keysPerOctaveBox.setLookAndFeel(&inWindowMenus);
+    addAndMakeVisible(keysPerOctaveBox);
 
     resetKeyButton.onClick = [this]
     {
@@ -46,10 +72,13 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     };
     addAndMakeVisible(resetKeyButton);
 
+    resetAllButton.setTooltip("Put every key back to standard tuning, with 12 keys per octave.");
     resetAllButton.onClick = [this]
     {
         processor.tuning.resetAll();
         processor.setScaleName(MicroKeysProcessor::defaultScaleName);
+        processor.setKeysPerOctave(12); // standard tuning is a 12-key layout
+        syncKeysPerOctave();
         centsSlider.setValue(0.0, juce::dontSendNotification);
         refreshReadouts();
     };
@@ -72,6 +101,7 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     for (int o = 0; o <= 8; ++o)
         octaveBox.addItem("C" + juce::String(o), o + 1);
     octaveBox.setSelectedId(5, juce::dontSendNotification); // octave 4
+    octaveBox.setTitle("Octave"); // accessibility name only; nothing visible changes
     octaveBox.onChange = [this] { refreshGrid(); };
     octaveBox.setLookAndFeel(&inWindowMenus);
     addAndMakeVisible(octaveBox);
@@ -140,6 +170,7 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     setupKnob(releaseSlider,    releaseLabel,    "Release",    releaseAtt,    "release");
 
     keyboard.setAvailableRange(21, 108); // 88 keys
+    keyboard.setOctaveForMiddleC(4);     // label middle C "C4", as the Hz boxes and readout do
     addAndMakeVisible(keyboard);
 
     noticeLabel.setText("MicroKeys " JucePlugin_VersionString " - free software under the GNU AGPLv3, with no warranty - "
@@ -153,6 +184,7 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
 
     processor.keyboardState.addListener(this);
 
+    syncKeysPerOctave();
     selectNote(selectedNote);
     updateScaleLabel();
     startTimerHz(2); // keep the label fresh if the host restores state while open
@@ -162,6 +194,7 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
 MicroKeysEditor::~MicroKeysEditor()
 {
     octaveBox.setLookAndFeel(nullptr);
+    keysPerOctaveBox.setLookAndFeel(nullptr);
     processor.keyboardState.removeListener(this);
 }
 
@@ -196,6 +229,7 @@ void MicroKeysEditor::selectNote(int note)
     octaveBox.setSelectedId(juce::jlimit(1, 9, selectedNote / 12), juce::dontSendNotification);
 
     refreshReadouts();
+    updateKeyboardChain();
 }
 
 void MicroKeysEditor::applyHz(int note, double hz)
@@ -205,7 +239,7 @@ void MicroKeysEditor::applyHz(int note, double hz)
     const auto cents = (float) (1200.0 * std::log2(hz / standard));
 
     if (allOctavesToggle.getToggleState())
-        processor.tuning.setCentsAllOctaves(note, cents);
+        processor.tuning.setCentsAllOctaves(note, cents, processor.getKeysPerOctave());
     else
         processor.tuning.setCents(note, cents);
 
@@ -248,6 +282,11 @@ void MicroKeysEditor::saveScale()
                     key->setAttribute("cents", (double) cents);
                 }
             }
+
+            // Only layouts that aren't 12 keys per octave record it, so 12-key files are
+            // exactly as before.
+            if (const int n = processor.getKeysPerOctave(); n != 12)
+                xml.setAttribute("keysPerOctave", n);
 
             if (! xml.writeTo(file))
             {
@@ -315,6 +354,10 @@ void MicroKeysEditor::loadScale()
                 processor.tuning.setCents(key->getIntAttribute("note"),
                                           (float) key->getDoubleAttribute("cents"));
 
+            // Files without it (every older file, and every file the tools write) are 12-key layouts.
+            processor.setKeysPerOctave(xml->getIntAttribute("keysPerOctave", 12));
+            syncKeysPerOctave();
+
             processor.setScaleName(file.getFileNameWithoutExtension());
             selectNote(selectedNote); // refresh slider, readouts and Hz grid
         });
@@ -354,6 +397,23 @@ void MicroKeysEditor::importScala(const juce::File& file)
 
     scale->applyToTable(processor.tuning, selectedNote);
     processor.setScaleName(file.getFileNameWithoutExtension());
+
+    // The import puts one degree on each key, so when the scale repeats at an exact octave
+    // (2/1) with a note count from the menu, keys that many apart are its octaves.
+    juce::String keysPerOctaveNote;
+    const int perOctave = scale->notesPerPeriod();
+
+    if (std::abs(scale->periodCents - 1200.0) < 0.001
+        && MicroKeysProcessor::isValidKeysPerOctave(perOctave)
+        && perOctave != processor.getKeysPerOctave())
+    {
+        processor.setKeysPerOctave(perOctave);
+        syncKeysPerOctave();
+        keysPerOctaveNote = "\n\nKeys per octave is now " + juce::String(perOctave)
+                          + ", so Tune all octaves copies a change to every key "
+                          + juce::String(perOctave) + " apart.";
+    }
+
     selectNote(selectedNote);
 
     const auto rootName = juce::MidiMessage::getMidiNoteName(selectedNote, true, true, 4);
@@ -365,7 +425,8 @@ void MicroKeysEditor::importScala(const juce::File& file)
                          + juce::String(scale->notesPerPeriod()) + " notes per period ("
                          + juce::String(scale->periodCents, 2) + " cents), root 1/1 on "
                          + rootName + " at "
-                         + juce::String(processor.tuning.frequencyForNote(selectedNote), 3) + " Hz.")
+                         + juce::String(processor.tuning.frequencyForNote(selectedNote), 3) + " Hz."
+                         + keysPerOctaveNote)
             .withButton("OK")
             .withAssociatedComponent(this),
         nullptr);
@@ -413,12 +474,56 @@ void MicroKeysEditor::applyCentsFromSlider()
     const auto value = (float) centsSlider.getValue();
 
     if (allOctavesToggle.getToggleState())
-        processor.tuning.setCentsAllOctaves(selectedNote, value);
+        processor.tuning.setCentsAllOctaves(selectedNote, value, processor.getKeysPerOctave());
     else
         processor.tuning.setCents(selectedNote, value);
 
     processor.markScaleEdited();
     refreshReadouts();
+}
+
+void MicroKeysEditor::timerCallback()
+{
+    // Keep the label fresh, and pick up Keys per octave if the host restores state while open.
+    if (processor.getKeysPerOctave() != shownKeysPerOctave)
+        syncKeysPerOctave();
+
+    updateScaleLabel();
+}
+
+void MicroKeysEditor::syncKeysPerOctave()
+{
+    const int n = processor.getKeysPerOctave();
+    shownKeysPerOctave = n;
+
+    if (keysPerOctaveBox.getSelectedId() != n)
+        keysPerOctaveBox.setSelectedId(n, juce::dontSendNotification);
+
+    const bool standard = (n == 12);
+    const juce::String count(n);
+
+    allOctavesToggle.setButtonText(standard ? juce::String("Tune all octaves (like a string)")
+                                            : "Tune all octaves (every " + count + " keys)");
+
+    hintLabel.setText(standard ? juce::String(standardHint)
+                               : count + " keys per octave: Tune all octaves copies each change to every key "
+                                     + count + " apart (an octave per " + count + " keys). Changing it retunes nothing.",
+                      juce::dontSendNotification);
+
+    // The Hz boxes and the Octave menu always page through 12 piano keys.
+    const juce::String pageTip = standard ? juce::String()
+                                          : juce::String("Shows 12 piano keys (C to B) at a time, whatever Keys per octave is set to.");
+    octaveLabel.setTooltip(pageTip);
+    octaveBox.setTooltip(pageTip);
+    octaveDownButton.setTooltip(standard ? juce::String("Previous octave") : juce::String("Previous 12 keys"));
+    octaveUpButton.setTooltip(standard ? juce::String("Next octave") : juce::String("Next 12 keys"));
+
+    updateKeyboardChain();
+}
+
+void MicroKeysEditor::updateKeyboardChain()
+{
+    keyboard.showChain(selectedNote, processor.getKeysPerOctave(), allOctavesToggle.getToggleState());
 }
 
 void MicroKeysEditor::updateScaleLabel()
@@ -458,9 +563,12 @@ void MicroKeysEditor::resized()
     hintLabel.setBounds(area.removeFromTop(22));
     area.removeFromTop(8);
 
-    auto tuningRow = area.removeFromTop(30);
-    selectedNoteLabel.setBounds(tuningRow.removeFromLeft(140));
-    freqLabel.setBounds(tuningRow);
+    auto tuningRow = area.removeFromTop(30);                                  // y 76-106
+    selectedNoteLabel.setBounds(tuningRow.removeFromLeft(140));               // x 16-156
+    keysPerOctaveBox.setBounds(tuningRow.removeFromRight(170).reduced(0, 3)); // x 634-804, y 79-103
+    tuningRow.removeFromRight(4);
+    keysPerOctaveLabel.setBounds(tuningRow.removeFromRight(124));             // x 506-630
+    freqLabel.setBounds(tuningRow);                                          // x 156-506 (350 px)
 
     centsSlider.setBounds(area.removeFromTop(36));
     area.removeFromTop(6);

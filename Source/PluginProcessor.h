@@ -55,6 +55,23 @@ public:
 
     static constexpr const char* defaultScaleName = "Standard tuning (12-TET)";
 
+    // "Keys per octave": how many keys it takes to reach the octave. It only sets how far
+    // apart "Tune all octaves" copies a key; it never changes a pitch by itself, and the
+    // audio thread never reads it. Atomic because state save/restore may run off the
+    // message thread. Anything not in the list (old projects, hand-edited files) means 12.
+    static constexpr int keysPerOctaveChoices[] = { 5, 7, 12, 19, 22, 24, 31 };
+
+    static bool isValidKeysPerOctave(int n)
+    {
+        for (int choice : keysPerOctaveChoices)
+            if (choice == n)
+                return true;
+        return false;
+    }
+
+    int getKeysPerOctave() const { return keysPerOctave.load(); }
+    void setKeysPerOctave(int n) { keysPerOctave.store(isValidKeysPerOctave(n) ? n : 12); }
+
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
 
@@ -62,6 +79,7 @@ private:
 
     juce::String scaleName { defaultScaleName };
     std::atomic<bool> scaleEdited { false };
+    std::atomic<int> keysPerOctave { 12 };
     juce::CriticalSection scaleNameLock;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MicroKeysProcessor)

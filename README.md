@@ -14,10 +14,11 @@ There is no macOS or Linux download: MicroKeys has only been built and tested on
 
 - **Per-key tuning.** Select a key by playing or clicking it, then drag the cents slider (±200 cents, 0.001-cent steps). The pitch updates while the note is sounding, so you can tune by ear like turning a tuning peg. The slider widens automatically for keys tuned further out.
 - **Exact frequencies.** A row of 12 boxes shows one octave of keys in Hz to three decimals. Pick the octave (C0 to C8) from the Octave menu or step through with the < and > buttons beside it; it also follows the last key you played. Type a frequency between 1 Hz and 20 kHz and press Enter.
-- **Tune all octaves.** With the toggle on (the default), retuning one key retunes every key of that pitch class, like a string. Turn it off to tune single keys. **Reset key** and **Reset all** return keys to standard tuning.
-- **Scale files.** Save and load complete tunings as `.mkscale` files.
-- **Scala import.** Load a Scala `.scl` scale with up to 1024 notes per period, including non-octave periods. Its 1/1 goes on the selected key at that key's current frequency, and each following degree goes on the next key up, black and white keys alike, so a 7-note scale repeats every 7 keys. The import retunes all 128 keys.
-- **Scale name display.** The current scale's name is shown, with "(edited)" once you change a key. The tuning and the name are saved with your DAW project.
+- **Tune all octaves.** With the toggle on (the default), retuning one key retunes the same key in every other octave, like a string. Turn it off to tune single keys. **Reset key** returns a key to standard tuning; **Reset all** returns every key to standard tuning and sets Keys per octave back to 12.
+- **Keys per octave.** The Keys per octave menu, beside the selected key's frequency, says how many keys it takes to reach the octave: 12 (normal), or 5, 7, 19, 22, 24 (quarter tones) or 31. Changing it retunes nothing; it only tells Tune all octaves which keys are octaves of each other. With 24, retuning C4 also puts C6 at exactly twice its frequency and C2 at exactly half, and leaves C5 alone. When it isn't 12 and Tune all octaves is on, the keys a change will reach are tinted orange on the keyboard. The Hz boxes still show 12 piano keys at a time, and the slider and cents readout still measure each key from its standard piano pitch, so in a 24-key layout many keys read several hundred cents: type their Hz in the boxes, then fine-tune with the slider.
+- **Scale files.** Save and load complete tunings as `.mkscale` files. A file also remembers Keys per octave when it isn't 12.
+- **Scala import.** Load a Scala `.scl` scale with up to 1024 notes per period, including non-octave periods. Its 1/1 goes on the selected key at that key's current frequency, and each following degree goes on the next key up, black and white keys alike, so a 7-note scale repeats every 7 keys. The import retunes all 128 keys. If the scale repeats at an exact octave (2/1) and has 5, 7, 12, 19, 22, 24 or 31 notes, Keys per octave is set to match, and the import message says so.
+- **Scale name display.** The current scale's name is shown, with "(edited)" once you change a key. The tuning, the name and the Keys per octave setting are saved with your DAW project.
 - **Sound.** A 16-voice FM electric-piano voice with Gain, Brightness, Attack, Decay, Sustain and Release controls.
 
 ## Using the tunings
@@ -26,7 +27,7 @@ Click **Load scale...** in the plugin and browse to a `.mkscale` or `.scl` file.
 
 For the guitar tunings, load the `.mkscale` files, which put each string on its own key at its exact frequency. The `.scl` versions are for Scala and other Scala-compatible instruments; loaded into MicroKeys they place the scale degrees on consecutive keys instead.
 
-`.mkscale` files are plain XML: one `<Key note="0-127" cents="..."/>` element per retuned MIDI key, giving that key's offset in cents from standard 12-TET tuning at A440. Keys that are not listed play at standard pitch. The plugin leaves out keys at 0 cents when it saves; the files in this repository list all 128.
+`.mkscale` files are plain XML: one `<Key note="0-127" cents="..."/>` element per retuned MIDI key, giving that key's offset in cents from standard 12-TET tuning at A440. Keys that are not listed play at standard pitch. The plugin leaves out keys at 0 cents when it saves; the files in this repository list all 128. A file saved with Keys per octave other than 12 records it on the root element, for example `<MicroKeysScale keysPerOctave="24">`. Files without it, including every file in this repository, are 12 keys per octave. Older versions of MicroKeys ignore the attribute and load the same pitches.
 
 ## The tunings
 

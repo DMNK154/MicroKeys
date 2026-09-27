@@ -62,6 +62,15 @@ an exact frequency in Hz into the box for that key and press Enter. The Hz
 boxes show one octave at a time; choose another with the Octave menu or the
 < and > buttons beside it.
 
+Keys per octave: "Tune all octaves" (on by default) copies each change to
+the same key in every octave. If your layout takes more or fewer keys than a
+piano to reach the octave, for example 24 for quarter tones, choose that
+number from the "Keys per octave" menu next to the key's frequency first.
+Changing it does not retune anything; it only tells "Tune all octaves" which
+keys are octaves of each other. When it isn't 12, those keys are tinted
+orange on the keyboard. The Hz boxes still show 12 piano keys at a time.
+"Reset all" puts every key back to standard tuning with 12 keys per octave.
+
 
 UNINSTALLING
 ------------

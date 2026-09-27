@@ -64,6 +64,10 @@ void MicroKeysProcessor::getStateInformation(juce::MemoryBlock& destData)
     state.setProperty("scaleName", getScaleName(), nullptr);
     state.setProperty("scaleEdited", isScaleEdited(), nullptr);
 
+    // Saved only when it isn't 12, so 12-key projects are stored exactly as before.
+    if (const int n = getKeysPerOctave(); n != 12)
+        state.setProperty("keysPerOctave", n, nullptr);
+
     juce::MemoryOutputStream stream(destData, false);
     state.writeToStream(stream);
 }
@@ -85,6 +89,10 @@ void MicroKeysProcessor::setStateInformation(const void* data, int sizeInBytes)
 
     setScaleName(state.getProperty("scaleName", defaultScaleName).toString(),
                  (bool) state.getProperty("scaleEdited", false));
+
+    // Always applied: projects saved before this setting existed have no property and
+    // are 12-key layouts. Unknown values also mean 12.
+    setKeysPerOctave((int) state.getProperty("keysPerOctave", 12));
 }
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
