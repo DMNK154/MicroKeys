@@ -6,7 +6,8 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
       processor(p),
       keyboard(p.keyboardState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
-    titleLabel.setText("MicroKeys — per-key tuning", juce::dontSendNotification);
+    titleLabel.setText(juce::String(juce::CharPointer_UTF8("MicroKeys \xe2\x80\x94 per-key tuning")),
+                       juce::dontSendNotification);
     titleLabel.setFont(juce::FontOptions(22.0f, juce::Font::bold));
     addAndMakeVisible(titleLabel);
 
@@ -72,7 +73,16 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
         octaveBox.addItem("C" + juce::String(o), o + 1);
     octaveBox.setSelectedId(5, juce::dontSendNotification); // octave 4
     octaveBox.onChange = [this] { refreshGrid(); };
+    octaveBox.setLookAndFeel(&inWindowMenus);
     addAndMakeVisible(octaveBox);
+
+    octaveDownButton.setTooltip("Previous octave");
+    octaveDownButton.onClick = [this] { stepOctave(-1); };
+    addAndMakeVisible(octaveDownButton);
+
+    octaveUpButton.setTooltip("Next octave");
+    octaveUpButton.onClick = [this] { stepOctave(1); };
+    addAndMakeVisible(octaveUpButton);
 
     for (int i = 0; i < 12; ++i)
     {
@@ -132,17 +142,33 @@ MicroKeysEditor::MicroKeysEditor(MicroKeysProcessor& p)
     keyboard.setAvailableRange(21, 108); // 88 keys
     addAndMakeVisible(keyboard);
 
+    noticeLabel.setText("MicroKeys " JucePlugin_VersionString " - free software under the GNU AGPLv3, with no warranty - "
+                        "github.com/DMNK154/MicroKeys\n"
+                        "VST is a trademark of Steinberg Media Technologies GmbH, registered in Europe and other countries.",
+                        juce::dontSendNotification);
+    noticeLabel.setFont(juce::FontOptions(11.0f));
+    noticeLabel.setJustificationType(juce::Justification::centred);
+    noticeLabel.setColour(juce::Label::textColourId, juce::Colours::grey);
+    addAndMakeVisible(noticeLabel);
+
     processor.keyboardState.addListener(this);
 
     selectNote(selectedNote);
     updateScaleLabel();
     startTimerHz(2); // keep the label fresh if the host restores state while open
-    setSize(820, 560);
+    setSize(820, 592);
 }
 
 MicroKeysEditor::~MicroKeysEditor()
 {
+    octaveBox.setLookAndFeel(nullptr);
     processor.keyboardState.removeListener(this);
+}
+
+void MicroKeysEditor::stepOctave(int delta)
+{
+    const int id = juce::jlimit(1, octaveBox.getNumItems(), octaveBox.getSelectedId() + delta);
+    octaveBox.setSelectedId(id, juce::sendNotificationSync);
 }
 
 void MicroKeysEditor::handleNoteOn(juce::MidiKeyboardState*, int, int note, float)
@@ -470,7 +496,11 @@ void MicroKeysEditor::resized()
     gridCaption.setBounds(captionRow.removeFromLeft(330));
     octaveLabel.setBounds(captionRow.removeFromLeft(70));
     captionRow.removeFromLeft(6);
+    octaveDownButton.setBounds(captionRow.removeFromLeft(26));
+    captionRow.removeFromLeft(4);
     octaveBox.setBounds(captionRow.removeFromLeft(80).reduced(0, 1));
+    captionRow.removeFromLeft(4);
+    octaveUpButton.setBounds(captionRow.removeFromLeft(26));
     area.removeFromTop(4);
 
     auto gridRow = area.removeFromTop(48);
@@ -482,6 +512,8 @@ void MicroKeysEditor::resized()
         hzBoxes[(size_t) i].setBounds(cell.reduced(3, 2));
     }
 
+    noticeLabel.setBounds(area.removeFromBottom(28));
+    area.removeFromBottom(4);
     area.removeFromTop(8);
     keyboard.setBounds(area);
 }
