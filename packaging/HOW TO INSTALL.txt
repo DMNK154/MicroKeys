@@ -54,8 +54,7 @@ LOADING A TUNING
 ----------------
 Click "Load scale..." in MicroKeys and pick a file from Documents\MicroKeys Scales.
 - .mkscale files are complete tunings: every key at its exact pitch.
-- .scl files (in the "Scala files" subfolder) are Scala scales. Select a key
-  first; the scale is placed on that key and the keys above it.
+- .scl files are Scala scales (see IMPORTING A SCALA SCALE below).
 
 To tune a key yourself: play or click it, then drag the cents slider, or type
 an exact frequency in Hz into the box for that key and press Enter. The Hz
@@ -71,6 +70,55 @@ keys are octaves of each other. When it isn't 12, those keys are tinted
 orange on the keyboard. The Hz boxes still show 12 piano keys at a time.
 "Reset all" puts every key back to standard tuning with 12 keys per octave.
 
+
+IMPORTING A SCALA SCALE
+-----------------------
+MicroKeys plays Scala .scl scales, the standard microtonal scale format.
+Three classic scales are included in Documents\MicroKeys Scales\Examples.
+Thousands more are in the Scala scale archive, which downloads as a zip
+file: https://www.huygens-fokker.org/docs/scales.zip
+Right-click the zip, choose "Extract All...", and extract it into
+Documents\MicroKeys Scales.
+
+Importing, like "Reset all", replaces the tuning of every key, with no
+undo. If you have tuned keys you want to keep, click "Save scale..." first.
+
+1. Play or click the key where the scale's 1/1 should go (the root). The
+   root is the last key selected: every note MicroKeys receives selects its
+   key, including notes your DAW plays back, so stop playback first. When
+   MicroKeys first opens, A4 is selected.
+   MicroKeys calls middle C (MIDI note 60) C4; FL Studio calls it C5.
+2. The 1/1 keeps that key's current pitch, even one left over from a scale
+   you loaded before. For the key's standard piano pitch, click "Reset all"
+   (the key stays selected). For another pitch, type it into the key's Hz
+   box and press Enter.
+3. Click "Load scale..." and choose the .scl file. To try it out, open
+   "Examples" and choose ptolemy_intense_diatonic.scl.
+4. A message confirms the scale, its period and where the root landed.
+5. Play upward from the root one key at a time, black and white keys
+   alike. Each key is the next degree: a 7-note scale on C4 reaches its
+   octave at G4, not C5.
+
+All 128 keys are retuned, and the scale repeats at its own period, which
+need not be an octave. If the scale repeats at an exact octave with 5, 7,
+12, 19, 22, 24 or 31 notes, Keys per octave is set to match. For other
+scales, turn off "Tune all octaves" before adjusting single keys.
+
+The cents slider still measures each key from its standard piano pitch, not
+from the scale's 1/1, so after an import many keys read hundreds of cents.
+For big changes, type the Hz, then fine-tune with the slider. Use
+"Save scale..." to keep your edited version as a .mkscale file.
+
+Not supported: Scala keyboard mapping (.kbm) files (so a 7-note scale can't
+go on the white keys only), MTS-ESP, MIDI Tuning Standard messages, .tun
+files, and exporting .scl files. The tuning changes only MicroKeys' own
+sound.
+
+The .scl files in "Scala files" are this project's guitar tunings as 3- to
+11-note scales. To play a guitar tuning with each string on its own key,
+load its .mkscale file instead.
+
+More detail: https://github.com/DMNK154/MicroKeys#importing-scala-scales
 
 UNINSTALLING
 ------------
