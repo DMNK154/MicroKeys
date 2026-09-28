@@ -1,4 +1,4 @@
-MicroKeys 0.2.0 for Windows (64-bit): third-party notices and licences
+MicroKeys 0.2.1 for Windows (64-bit): third-party notices and licences
 ======================================================================
 
 MicroKeys
@@ -22,13 +22,13 @@ this file, and the CMake build files used to build the programs. You can get it
 in either of two ways:
 
   - From the Git repository https://github.com/DMNK154/MicroKeys
-    at tag v0.2.0, together with the JUCE submodule (JUCE 8.0.8) that the
+    at tag v0.2.1, together with the JUCE submodule (JUCE 8.0.8) that the
     tag points to. This command downloads both:
 
-      git clone --recurse-submodules --branch v0.2.0 https://github.com/DMNK154/MicroKeys.git
+      git clone --recurse-submodules --branch v0.2.1 https://github.com/DMNK154/MicroKeys.git
 
-  - As the archive MicroKeys-0.2.0-source-with-JUCE.zip, attached to the v0.2.0
-    release at https://github.com/DMNK154/MicroKeys/releases/tag/v0.2.0
+  - As the archive MicroKeys-0.2.1-source-with-JUCE.zip, attached to the v0.2.1
+    release at https://github.com/DMNK154/MicroKeys/releases/tag/v0.2.1
     It holds the repository and the JUCE submodule in one archive. (GitHub's
     automatic "Source code" downloads leave the JUCE submodule out.)
 
