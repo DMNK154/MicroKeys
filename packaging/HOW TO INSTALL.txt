@@ -103,8 +103,8 @@ undo. If you have tuned keys you want to keep, click "Save scale..." first.
    octave at G4, not C5.
 
 All 128 keys are retuned, and the scale repeats at its own period, which
-need not be an octave. If the scale repeats at an exact octave with 5, 7,
-12, 19, 22, 24 or 31 notes, Keys per octave is set to match. For other
+need not be an octave. If the scale repeats at an exact octave with 5, 6,
+7, 12, 19, 22, 24 or 31 notes, Keys per octave is set to match. For other
 scales, turn off "Tune all octaves" before adjusting single keys.
 
 The cents slider still measures each key from its standard piano pitch, not
@@ -118,8 +118,9 @@ files, and exporting .scl files. The tuning changes only MicroKeys' own
 sound.
 
 The .scl files in "Scala files" are this project's guitar tunings as 3- to
-11-note scales. To play a guitar tuning with each string on its own key,
-load its .mkscale file instead.
+11-note scales. guitar3.scl to guitar8.scl have 6 notes per octave, one per
+string, so importing one sets Keys per octave to 6. To play a guitar tuning
+with each string on its own piano key, load its .mkscale file instead.
 
 More detail: https://github.com/DMNK154/MicroKeys#importing-scala-scales
 

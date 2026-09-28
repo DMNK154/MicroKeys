@@ -59,7 +59,7 @@ public:
     // apart "Tune all octaves" copies a key; it never changes a pitch by itself, and the
     // audio thread never reads it. Atomic because state save/restore may run off the
     // message thread. Anything not in the list (old projects, hand-edited files) means 12.
-    static constexpr int keysPerOctaveChoices[] = { 5, 7, 12, 19, 22, 24, 31 };
+    static constexpr int keysPerOctaveChoices[] = { 5, 6, 7, 12, 19, 22, 24, 31 };
 
     static bool isValidKeysPerOctave(int n)
     {
